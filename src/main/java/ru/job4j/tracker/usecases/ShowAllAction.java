@@ -1,7 +1,7 @@
 package ru.job4j.tracker.usecases;
 
 import ru.job4j.tracker.input.Input;
-import ru.job4j.tracker.logic.Tracker;
+import ru.job4j.tracker.logic.Store;
 import ru.job4j.tracker.model.Item;
 
 import java.util.List;
@@ -14,12 +14,13 @@ public class ShowAllAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         System.out.println(name());
         List<Item> array = tracker.findAll();
         for (Item item : array) {
-            System.out.println(item.getName());
+            System.out.println(System.lineSeparator() + item);
         }
+        System.out.println(System.lineSeparator());
         return true;
     }
 }
