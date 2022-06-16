@@ -3,10 +3,17 @@ package ru.job4j.tracker.usecases;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.logic.Store;
 import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.output.Output;
 
 import java.util.List;
 
 public class FindByNameAction implements UserAction {
+
+    private final Output output;
+
+    public FindByNameAction(Output output) {
+        this.output = output;
+    }
 
     @Override
     public String name() {
@@ -15,16 +22,15 @@ public class FindByNameAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Store tracker) {
-        System.out.println(name());
+        output.out(name());
         String name = input.askStr("Enter name: ");
         List<Item> array = tracker.findByName(name);
         int value = array.size();
         for (Item item : array) {
-            System.out.println(System.lineSeparator() + item + System.lineSeparator());
+            output.out(item.toString() + System.lineSeparator());
         }
         if (value == 0) {
-            System.out.println(String.format("%sNothing found.%s",
-                    System.lineSeparator(), System.lineSeparator()));
+            output.out("Nothing found." + System.lineSeparator());
         }
         return true;
     }

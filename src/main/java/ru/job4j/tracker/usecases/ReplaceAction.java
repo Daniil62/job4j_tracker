@@ -3,8 +3,15 @@ package ru.job4j.tracker.usecases;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.logic.Store;
 import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.output.Output;
 
 public class ReplaceAction implements UserAction {
+
+    private final Output output;
+
+    public ReplaceAction(Output output) {
+        this.output = output;
+    }
 
     @Override
     public String name() {
@@ -13,15 +20,13 @@ public class ReplaceAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Store tracker) {
-        System.out.println(name());
+        output.out(name());
         String id = input.askStr("Enter Id: ");
         Item item = new Item(input.askStr("Enter new name: "));
         if (tracker.replace(id, item)) {
-            System.out.println(String.format("%sChanges made successfully.%s",
-                    System.lineSeparator(), System.lineSeparator()));
+            output.out("Changes made successfully." + System.lineSeparator());
         } else {
-            System.out.println(String.format("%sThis Id do not exist!%s",
-                    System.lineSeparator(), System.lineSeparator()));
+            output.out("This Id do not exist!" + System.lineSeparator());
         }
         return true;
     }
