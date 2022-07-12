@@ -66,7 +66,7 @@ public class ReplaceActionTest {
         String replacedName = "New_item_name";
         UserAction action = new ReplaceAction(out);
         Input input = mock(Input.class);
-        when(input.askStr(any(String.class))).thenReturn(item.getId(), replacedName);
+        when(input.askStr(any(String.class))).thenReturn(String.valueOf(item.getId()), replacedName);
         action.execute(input, tracker);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is("Edit item" + ln + "Changes made successfully." + ln + ln));

@@ -69,7 +69,7 @@ public class FindByIdActionTest {
         tracker.add(item);
         UserAction action = new FindByIdAction(out);
         Input input = mock(Input.class);
-        when(input.askStr(any(String.class))).thenReturn(item.getId());
+        when(input.askStr(any(String.class))).thenReturn(String.valueOf(item.getId()));
         action.execute(input, tracker);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is("Find item by Id" + ln + item.toString() + ln + ln));

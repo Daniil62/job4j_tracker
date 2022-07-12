@@ -8,25 +8,28 @@ public class Item implements Comparable<Item> {
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss");
-    private String id;
+    private long id;
     private String name;
     private LocalDateTime created = LocalDateTime.now();
+
+    public Item() {
+    }
 
     public Item(String name) {
         this.name = name;
     }
 
-    public Item(String id, String name, LocalDateTime created) {
+    public Item(long id, String name, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.created = created;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

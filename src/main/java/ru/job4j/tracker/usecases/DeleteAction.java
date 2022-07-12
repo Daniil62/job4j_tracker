@@ -20,7 +20,7 @@ public class DeleteAction implements UserAction {
     @Override
     public boolean execute(Input input, Store tracker) {
         output.out(name());
-        String id = input.askStr("Enter Id: ");
+        long id = Long.parseLong(input.askStr("Enter Id: "));
         if (tracker.delete(id)) {
             output.out("Data was successfully deleted." + System.lineSeparator());
         } else {

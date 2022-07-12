@@ -46,7 +46,7 @@ public class SqlTracker implements Store {
             statement.executeUpdate();
             try (ResultSet rs = statement.getGeneratedKeys()) {
                 if (rs.next()) {
-                    item.setId(String.valueOf(rs.getLong(1)));
+                    item.setId(rs.getLong(1));
                 }
             }
         } catch (SQLException e) {
@@ -56,13 +56,13 @@ public class SqlTracker implements Store {
     }
 
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(long id, Item item) {
         boolean result = false;
         try (PreparedStatement statement = connection.prepareStatement(
                 "update items set name = ?, created = ? where id = ?")) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
-            statement.setInt(3, Integer.parseInt(id));
+            statement.setLong(3, id);
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,11 +71,11 @@ public class SqlTracker implements Store {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(long id) {
         boolean result = false;
         try (PreparedStatement statement = connection.prepareStatement(
                 "delete from items where id = ?")) {
-            statement.setInt(1, Integer.parseInt(id));
+            statement.setLong(1, id);
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,11 +109,11 @@ public class SqlTracker implements Store {
     }
 
     @Override
-    public Item findById(String id) {
+    public Item findById(long id) {
         Item result = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 "select * from items where id = ?")) {
-            statement.setInt(1, Integer.parseInt(id));
+            statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 result = parseResultSetToItem(rs);
@@ -147,7 +147,7 @@ public class SqlTracker implements Store {
         Item result = null;
         try {
             result = new Item(
-                    String.valueOf(rs.getInt(1)),
+                    rs.getLong(1),
                     rs.getString(2),
                     rs.getTimestamp(3).toLocalDateTime());
         } catch (SQLException e) {

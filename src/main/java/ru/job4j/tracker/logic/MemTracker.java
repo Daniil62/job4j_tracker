@@ -9,15 +9,15 @@ public class MemTracker implements Store {
 
     private List<Item> items = new ArrayList<>();
 
-    private String generateId() {
+    private long generateId() {
         java.util.Random rm = new java.util.Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+        return rm.nextLong() + System.currentTimeMillis();
     }
 
-    private int indexOf(String id) {
+    private int indexOf(long id) {
         int result = -1;
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getId().equals(id)) {
+            if (items.get(i).getId() == id) {
                 result = i;
                 break;
             }
@@ -52,17 +52,17 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public Item findById(String id) {
+    public Item findById(long id) {
         Item item = null;
         int index = indexOf(id);
-        if (index != -1 && items.get(index).getId().equals(id)) {
+        if (index != -1 && items.get(index).getId() == id) {
             item = items.get(index);
         }
         return item;
     }
 
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(long id, Item item) {
         boolean result = false;
         int index = indexOf(id);
         if (index != -1) {
@@ -74,7 +74,7 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(long id) {
         int index = indexOf(id);
         boolean result = false;
         if (index != -1) {
