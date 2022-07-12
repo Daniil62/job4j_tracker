@@ -1,13 +1,18 @@
 package ru.job4j.tracker.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+@Entity
+@Table(name = "items")
 public class Item implements Comparable<Item> {
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss");
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private LocalDateTime created = LocalDateTime.now();
