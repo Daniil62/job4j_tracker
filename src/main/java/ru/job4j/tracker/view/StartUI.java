@@ -3,7 +3,7 @@ package ru.job4j.tracker.view;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
-import ru.job4j.tracker.logic.SqlTracker;
+import ru.job4j.tracker.logic.HbmTracker;
 import ru.job4j.tracker.logic.Store;
 import ru.job4j.tracker.output.ConsoleOutput;
 import ru.job4j.tracker.output.Output;
@@ -42,7 +42,7 @@ public class StartUI {
         actions.add(new ExitAction(output));
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
-        SqlTracker tracker = new SqlTracker();
+        Store tracker = new HbmTracker();
         tracker.init();
         new StartUI().init(validate, tracker, actions);
     }
