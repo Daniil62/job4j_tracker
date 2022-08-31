@@ -7,10 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.tracker.model.Item;
 
-import java.io.Closeable;
 import java.util.List;
 
-public class HbmTracker implements Store, Closeable {
+public class HbmTracker implements Store {
 
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
